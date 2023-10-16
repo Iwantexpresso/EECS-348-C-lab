@@ -1,8 +1,15 @@
 #include <stdio.h>
 #include <string.h>
 
+float calculateAverage(float arr[], int n) {
+  float sum = 0;
+  for (int i = 0; i < n; i++) {
+    sum += arr[i];
+  }
+  return sum / n;
 
 
+}
 int main() {
 
 float Arr[12] ={23458.01,
@@ -19,20 +26,20 @@ float Arr[12] ={23458.01,
 95225.22};
 
 int width = 10;
-int len =12;
+int len = 12;
 
-char Months[len][width]= {"January","February","March","April","May","June",
+char Months[12][10]= {"January","February","March","April","May","June",
 "July","August","September","October","November", "December"};
 
-  printf("Monthly Sales Report for:\n");
-  
+
+printf("Monthly Sales Report for:\n");
 
 for (int i = 0; i < 12; i++) {
   printf("%-*s\t%.2f\n",width, Months[i], Arr[i]  );
   
   }
 
-printf("Sales Summary: \n");
+printf("\nSales Summary: \n");
 
 float min;
 float max;
@@ -46,7 +53,7 @@ for (int i = 0; i < 12; i++) {
      } 
 }
 min = Arr[min_index];
-printf("Min:%-*s\t%.2f\n ",width, Months[min_index], Arr[min_index]);
+printf("Min: %-*s\t%.2f\n",width, Months[min_index], Arr[min_index]);
 break;
 
 
@@ -61,21 +68,65 @@ for (int i = 0; i < 12; i++) {
      } 
 }
 max = Arr[max_index];
-printf("Max:%-*s\t%.2f\n ",width, Months[max_index], Arr[max_index]);
+printf("Max: %-*s\t%.2f\n",width, Months[max_index], Arr[max_index]);
 break;
 
 
 }
-// Aveareg index code
+// Average index code
 float avg;
-for (int i = 0; i < 12; i++) {
-  avg += Arr[i];
+avg = calculateAverage(Arr,12);
+printf("Average:\t%.2f\n", avg);
+
+ float movingAvg;
+  printf("\nSix-Month Moving Average Report:\n");
+  for(int i=0; i<6; i++) {
+    movingAvg = calculateAverage(Arr+i, 6);
+    printf("%-*s - %-*s $%.2f\n",width, Months[i],width,Months[i+5], movingAvg); 
+  }
+//sorting for last question
+char SMonths[12][10] = {"December","November","July","October", "September","June", "August","March","February", "May","April","January"};
+float sort_Arr[12] ={23458.01,
+40112.00,
+56011.85,
+37820.88,
+37904.67,
+60200.22,
+72400.31,
+56210.89,
+67230.84,
+68233.12,
+80950.34,
+95225.22};
+
+// Insertion sort 
+for(int i=1; i<12; i++) {
+
+  float key = sort_Arr[i];
+  int j = i-1;
+ 
+  while(j>=0 && sort_Arr[j] < key) {
+    sort_Arr[j+1] = sort_Arr[j];
+    j--;
+  }
+
+  sort_Arr[j+1] = key;
+
+
+  
+
+
 }
-avg =avg/len;
-printf("Average:\t%.2f\n ", avg);
 
+// Print sorted sales
+printf("\nSales Report (Highest to Lowest):\n");
+for(int i=0; i<12; i++) {
 
+  // Get original index  
 
+  printf("%-*s\t$%.2f\n",width, SMonths[i], sort_Arr[i]);
+
+}
 
 
 
